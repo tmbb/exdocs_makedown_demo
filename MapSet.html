@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.19.0">
+    <title>MapSet – elixir v1.7.0-rc.0</title>
+    <link rel="stylesheet" href="dist/app-240d7fc7e5.css" />
+    <script src="dist/sidebar_items-2b759e433f.js"></script>
+    
+  </head>
+  <body data-type="modules">
+    <script>try { if(localStorage.getItem('night-mode')) document.body.className += ' night-mode'; } catch (e) { }</script>
+    <div class="main">
+<button class="sidebar-button sidebar-toggle">
+  <span class="icon-menu" aria-hidden="true"></span>
+  <span class="sr-only">Toggle Sidebar</span>
+</button>
+<button class="sidebar-button night-mode-toggle">
+  <span class="icon-theme" aria-hidden="true"></span>
+  <span class="sr-only">Toggle Theme</span>
+</button>
+<section class="sidebar">
+
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+elixir      </h1>
+      <h2 class="sidebar-projectVersion">
+        v1.7.0-rc.0
+      </h2>
+    </div>
+  </a>
+
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button">
+      <span class="icon-search" aria-hidden="true"></span>
+    </button>
+    <input name="q" type="text" id="search-list" class="search-input" placeholder="Search" aria-label="Search" autocomplete="off" />
+  </form>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+
+      <li><a id="exceptions-list" href="#full-list">Exceptions</a></li>
+
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">elixir v1.7.0-rc.0</small>
+MapSet              </h1>
+
+
+        <section id="moduledoc">
+<p>Functions that work on sets.</p>
+<p><a href="MapSet.html#content"><code class="inline">MapSet</code></a> is the “go to” set data structure in Elixir. A set can be constructed
+using <a href="MapSet.html#new/0"><code class="inline">MapSet.new/0</code></a>:</p>
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="1082218734-1">(</span><span class="p" data-group-id="1082218734-1">)</span><span class="w">
+</span><span class="p" data-group-id="1082218734-2">#</span><span class="nc" data-group-id="1082218734-2">MapSet</span><span class="p" data-group-id="1082218734-2">&lt;</span><span class="p" data-group-id="1082218734-3">[</span><span class="p" data-group-id="1082218734-3">]</span><span class="p" data-group-id="1082218734-2">&gt;</span></code></pre>
+<p>A set can contain any kind of elements, and elements in a set don’t have to be
+of the same type. By definition, sets can’t contain duplicate elements: when
+inserting an element in a set where it’s already present, the insertion is
+simply a no-op.</p>
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">map_set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="7172162427-1">(</span><span class="p" data-group-id="7172162427-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="7172162427-2">(</span><span class="n">map_set</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p" data-group-id="7172162427-2">)</span><span class="w">
+</span><span class="p" data-group-id="7172162427-3">#</span><span class="nc" data-group-id="7172162427-3">MapSet</span><span class="p" data-group-id="7172162427-3">&lt;</span><span class="p" data-group-id="7172162427-4">[</span><span class="s">&quot;foo&quot;</span><span class="p" data-group-id="7172162427-4">]</span><span class="p" data-group-id="7172162427-3">&gt;</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="n">map_set</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="7172162427-5">(</span><span class="s">&quot;foo&quot;</span><span class="p" data-group-id="7172162427-5">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="7172162427-6">(</span><span class="s">&quot;foo&quot;</span><span class="p" data-group-id="7172162427-6">)</span><span class="w">
+</span><span class="p" data-group-id="7172162427-7">#</span><span class="nc" data-group-id="7172162427-7">MapSet</span><span class="p" data-group-id="7172162427-7">&lt;</span><span class="p" data-group-id="7172162427-8">[</span><span class="s">&quot;foo&quot;</span><span class="p" data-group-id="7172162427-8">]</span><span class="p" data-group-id="7172162427-7">&gt;</span></code></pre>
+<p>A <a href="MapSet.html#content"><code class="inline">MapSet</code></a> is represented internally using the <code class="inline">%MapSet{}</code> struct. This struct
+can be used whenever there’s a need to pattern match on something being a <a href="MapSet.html#content"><code class="inline">MapSet</code></a>:</p>
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">match?</span><span class="p" data-group-id="2203468906-1">(</span><span class="p" data-group-id="2203468906-2">%</span><span class="nc" data-group-id="2203468906-2">MapSet</span><span class="p" data-group-id="2203468906-2">{</span><span class="p" data-group-id="2203468906-2">}</span><span class="p">,</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="2203468906-3">(</span><span class="p" data-group-id="2203468906-3">)</span><span class="p" data-group-id="2203468906-1">)</span><span class="w">
+</span><span class="no">true</span></code></pre>
+<p>Note that, however, the struct fields are private and must not be accessed
+directly; use the functions in this module to perform operations on sets.</p>
+<p><a href="MapSet.html#content"><code class="inline">MapSet</code></a>s can also be constructed starting from other collection-type data
+structures: for example, see <a href="MapSet.html#new/1"><code class="inline">MapSet.new/1</code></a> or <a href="Enum.html#into/2"><code class="inline">Enum.into/2</code></a>.</p>
+        </section>
+
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:t/0">t()</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:t/1">t(value)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:value/0">value()</a>
+  </div>
+</div>
+  </div>
+            <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete/2">delete(map_set, value)</a>
+  </div>
+    <div class="summary-synopsis"><p>Deletes <code class="inline">value</code> from <code class="inline">map_set</code></p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#difference/2">difference(map_set1, map_set2)</a>
+  </div>
+    <div class="summary-synopsis"><p>Returns a set that is <code class="inline">map_set1</code> without the members of <code class="inline">map_set2</code></p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#disjoint?/2">disjoint?(map_set1, map_set2)</a>
+  </div>
+    <div class="summary-synopsis"><p>Checks if <code class="inline">map_set1</code> and <code class="inline">map_set2</code> have no members in common</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#equal?/2">equal?(map_set1, map_set2)</a>
+  </div>
+    <div class="summary-synopsis"><p>Checks if two sets are equal</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#intersection/2">intersection(map_set, map_set)</a>
+  </div>
+    <div class="summary-synopsis"><p>Returns a set containing only members that <code class="inline">map_set1</code> and <code class="inline">map_set2</code> have in common</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#member?/2">member?(map_set, value)</a>
+  </div>
+    <div class="summary-synopsis"><p>Checks if <code class="inline">map_set</code> contains <code class="inline">value</code></p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#new/0">new()</a>
+  </div>
+    <div class="summary-synopsis"><p>Returns a new set</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#new/1">new(enumerable)</a>
+  </div>
+    <div class="summary-synopsis"><p>Creates a set from an enumerable</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#new/2">new(enumerable, transform)</a>
+  </div>
+    <div class="summary-synopsis"><p>Creates a set from an enumerable via the transformation function</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#put/2">put(map_set, value)</a>
+  </div>
+    <div class="summary-synopsis"><p>Inserts <code class="inline">value</code> into <code class="inline">map_set</code> if <code class="inline">map_set</code> doesn’t already contain it</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#size/1">size(map_set)</a>
+  </div>
+    <div class="summary-synopsis"><p>Returns the number of elements in <code class="inline">map_set</code></p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#subset?/2">subset?(map_set1, map_set2)</a>
+  </div>
+    <div class="summary-synopsis"><p>Checks if <code class="inline">map_set1</code>’s members are all contained in <code class="inline">map_set2</code></p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#to_list/1">to_list(map_set)</a>
+  </div>
+    <div class="summary-synopsis"><p>Converts <code class="inline">map_set</code> to a list</p>
+</div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#union/2">union(map_set1, map_set2)</a>
+  </div>
+    <div class="summary-synopsis"><p>Returns a set containing all members of <code class="inline">map_set1</code> and <code class="inline">map_set2</code></p>
+</div>
+</div>
+  </div>
+
+        </section>
+
+        <section id="types" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#types">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Types
+          </h1>
+          <div class="types-list">
+<div class="detail" id="t:t/0">
+    <div class="detail-header">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <span class="signature">t()</span>
+        
+      <div class="specs">
+          <pre>t() :: <a href="#t:t/1">t</a>(<a href="typespecs.html#built-in-types">term</a>())</pre>
+      </div>
+  </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="t:t/1">
+    <div class="detail-header">
+    <a href="#t:t/1" class="detail-link" title="Link to this opaque">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this opaque</span>
+    </a>
+    <span class="signature">t(value)</span>
+    
+      <span class="note">(opaque)</span>
+    
+      <div class="specs">
+          <pre><a href="#t:t/1">t</a>(value)</pre>
+      </div>
+  </div>
+  <section class="docstring">
+  </section>
+</div>
+<div class="detail" id="t:value/0">
+    <div class="detail-header">
+    <a href="#t:value/0" class="detail-link" title="Link to this type">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <span class="signature">value()</span>
+        
+      <div class="specs">
+          <pre>value() :: <a href="typespecs.html#built-in-types">term</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+  </section>
+</div>
+          </div>
+        </section>
+
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Functions
+          </h1>
+<div class="detail" id="delete/2">
+    <div class="detail-header">
+    <a href="#delete/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">delete(map_set, value)</span>
+        
+      <div class="specs">
+          <pre>delete(<a href="#t:t/1">t</a>(val1), val2) :: <a href="#t:t/1">t</a>(val1) when val1: <a href="#t:value/0">value</a>(), val2: <a href="#t:value/0">value</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Deletes <code class="inline">value</code> from <code class="inline">map_set</code>.</p>
+<p>Returns a new set which is a copy of <code class="inline">map_set</code> but without <code class="inline">value</code>.</p>
+<h2 id="delete/2-examples" class="section-heading">
+  <a href="#delete/2-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="n">map_set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="8658997167-1">(</span><span class="p" data-group-id="8658997167-2">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="8658997167-2">]</span><span class="p" data-group-id="8658997167-1">)</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">delete</span><span class="p" data-group-id="8658997167-3">(</span><span class="n">map_set</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="8658997167-3">)</span><span class="w">
+</span><span class="p" data-group-id="8658997167-4">#</span><span class="nc" data-group-id="8658997167-4">MapSet</span><span class="p" data-group-id="8658997167-4">&lt;</span><span class="p" data-group-id="8658997167-5">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="8658997167-5">]</span><span class="p" data-group-id="8658997167-4">&gt;</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">delete</span><span class="p" data-group-id="8658997167-6">(</span><span class="n">map_set</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="8658997167-6">)</span><span class="w">
+</span><span class="p" data-group-id="8658997167-7">#</span><span class="nc" data-group-id="8658997167-7">MapSet</span><span class="p" data-group-id="8658997167-7">&lt;</span><span class="p" data-group-id="8658997167-8">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="8658997167-8">]</span><span class="p" data-group-id="8658997167-7">&gt;</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="difference/2">
+    <div class="detail-header">
+    <a href="#difference/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">difference(map_set1, map_set2)</span>
+        
+      <div class="specs">
+          <pre>difference(<a href="#t:t/1">t</a>(val1), <a href="#t:t/1">t</a>(val2)) :: <a href="#t:t/1">t</a>(val1)
+when val1: <a href="#t:value/0">value</a>(), val2: <a href="#t:value/0">value</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Returns a set that is <code class="inline">map_set1</code> without the members of <code class="inline">map_set2</code>.</p>
+<h2 id="difference/2-examples" class="section-heading">
+  <a href="#difference/2-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">difference</span><span class="p" data-group-id="9904466021-1">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="9904466021-2">(</span><span class="p" data-group-id="9904466021-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="9904466021-3">]</span><span class="p" data-group-id="9904466021-2">)</span><span class="p">,</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="9904466021-4">(</span><span class="p" data-group-id="9904466021-5">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="9904466021-5">]</span><span class="p" data-group-id="9904466021-4">)</span><span class="p" data-group-id="9904466021-1">)</span><span class="w">
+</span><span class="p" data-group-id="9904466021-6">#</span><span class="nc" data-group-id="9904466021-6">MapSet</span><span class="p" data-group-id="9904466021-6">&lt;</span><span class="p" data-group-id="9904466021-7">[</span><span class="mi">1</span><span class="p" data-group-id="9904466021-7">]</span><span class="p" data-group-id="9904466021-6">&gt;</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="disjoint?/2">
+    <div class="detail-header">
+    <a href="#disjoint?/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">disjoint?(map_set1, map_set2)</span>
+        
+      <div class="specs">
+          <pre>disjoint?(<a href="#t:t/0">t</a>(), <a href="#t:t/0">t</a>()) :: <a href="typespecs.html#built-in-types">boolean</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Checks if <code class="inline">map_set1</code> and <code class="inline">map_set2</code> have no members in common.</p>
+<h2 id="disjoint?/2-examples" class="section-heading">
+  <a href="#disjoint?/2-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">disjoint?</span><span class="p" data-group-id="8130172771-1">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="8130172771-2">(</span><span class="p" data-group-id="8130172771-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="8130172771-3">]</span><span class="p" data-group-id="8130172771-2">)</span><span class="p">,</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="8130172771-4">(</span><span class="p" data-group-id="8130172771-5">[</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="8130172771-5">]</span><span class="p" data-group-id="8130172771-4">)</span><span class="p" data-group-id="8130172771-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">disjoint?</span><span class="p" data-group-id="8130172771-6">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="8130172771-7">(</span><span class="p" data-group-id="8130172771-8">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="8130172771-8">]</span><span class="p" data-group-id="8130172771-7">)</span><span class="p">,</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="8130172771-9">(</span><span class="p" data-group-id="8130172771-10">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="8130172771-10">]</span><span class="p" data-group-id="8130172771-9">)</span><span class="p" data-group-id="8130172771-6">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="equal?/2">
+    <div class="detail-header">
+    <a href="#equal?/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">equal?(map_set1, map_set2)</span>
+        
+      <div class="specs">
+          <pre>equal?(<a href="#t:t/0">t</a>(), <a href="#t:t/0">t</a>()) :: <a href="typespecs.html#built-in-types">boolean</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Checks if two sets are equal.</p>
+<p>The comparison between elements must be done using <a href="Kernel.html#===/2"><code class="inline">===/2</code></a>.</p>
+<h2 id="equal?/2-examples" class="section-heading">
+  <a href="#equal?/2-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">equal?</span><span class="p" data-group-id="4752369062-1">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="4752369062-2">(</span><span class="p" data-group-id="4752369062-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4752369062-3">]</span><span class="p" data-group-id="4752369062-2">)</span><span class="p">,</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="4752369062-4">(</span><span class="p" data-group-id="4752369062-5">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="4752369062-5">]</span><span class="p" data-group-id="4752369062-4">)</span><span class="p" data-group-id="4752369062-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">equal?</span><span class="p" data-group-id="4752369062-6">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="4752369062-7">(</span><span class="p" data-group-id="4752369062-8">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="4752369062-8">]</span><span class="p" data-group-id="4752369062-7">)</span><span class="p">,</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="4752369062-9">(</span><span class="p" data-group-id="4752369062-10">[</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="4752369062-10">]</span><span class="p" data-group-id="4752369062-9">)</span><span class="p" data-group-id="4752369062-6">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="intersection/2">
+    <div class="detail-header">
+    <a href="#intersection/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">intersection(map_set, map_set)</span>
+        
+      <div class="specs">
+          <pre>intersection(<a href="#t:t/1">t</a>(val), <a href="#t:t/1">t</a>(val)) :: <a href="#t:t/1">t</a>(val) when val: <a href="#t:value/0">value</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Returns a set containing only members that <code class="inline">map_set1</code> and <code class="inline">map_set2</code> have in common.</p>
+<h2 id="intersection/2-examples" class="section-heading">
+  <a href="#intersection/2-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">intersection</span><span class="p" data-group-id="6952979755-1">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="6952979755-2">(</span><span class="p" data-group-id="6952979755-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="6952979755-3">]</span><span class="p" data-group-id="6952979755-2">)</span><span class="p">,</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="6952979755-4">(</span><span class="p" data-group-id="6952979755-5">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="6952979755-5">]</span><span class="p" data-group-id="6952979755-4">)</span><span class="p" data-group-id="6952979755-1">)</span><span class="w">
+</span><span class="p" data-group-id="6952979755-6">#</span><span class="nc" data-group-id="6952979755-6">MapSet</span><span class="p" data-group-id="6952979755-6">&lt;</span><span class="p" data-group-id="6952979755-7">[</span><span class="mi">2</span><span class="p" data-group-id="6952979755-7">]</span><span class="p" data-group-id="6952979755-6">&gt;</span><span class="w">
+
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">intersection</span><span class="p" data-group-id="6952979755-8">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="6952979755-9">(</span><span class="p" data-group-id="6952979755-10">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="6952979755-10">]</span><span class="p" data-group-id="6952979755-9">)</span><span class="p">,</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="6952979755-11">(</span><span class="p" data-group-id="6952979755-12">[</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="6952979755-12">]</span><span class="p" data-group-id="6952979755-11">)</span><span class="p" data-group-id="6952979755-8">)</span><span class="w">
+</span><span class="p" data-group-id="6952979755-13">#</span><span class="nc" data-group-id="6952979755-13">MapSet</span><span class="p" data-group-id="6952979755-13">&lt;</span><span class="p" data-group-id="6952979755-14">[</span><span class="p" data-group-id="6952979755-14">]</span><span class="p" data-group-id="6952979755-13">&gt;</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="member?/2">
+    <div class="detail-header">
+    <a href="#member?/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">member?(map_set, value)</span>
+        
+      <div class="specs">
+          <pre>member?(<a href="#t:t/0">t</a>(), <a href="#t:value/0">value</a>()) :: <a href="typespecs.html#built-in-types">boolean</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Checks if <code class="inline">map_set</code> contains <code class="inline">value</code>.</p>
+<h2 id="member?/2-examples" class="section-heading">
+  <a href="#member?/2-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">member?</span><span class="p" data-group-id="5482266978-1">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="5482266978-2">(</span><span class="p" data-group-id="5482266978-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="5482266978-3">]</span><span class="p" data-group-id="5482266978-2">)</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="5482266978-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">member?</span><span class="p" data-group-id="5482266978-4">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="5482266978-5">(</span><span class="p" data-group-id="5482266978-6">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="5482266978-6">]</span><span class="p" data-group-id="5482266978-5">)</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="5482266978-4">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="new/0">
+    <div class="detail-header">
+    <a href="#new/0" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">new()</span>
+        
+      <div class="specs">
+          <pre>new() :: <a href="#t:t/0">t</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Returns a new set.</p>
+<h2 id="new/0-examples" class="section-heading">
+  <a href="#new/0-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="9632541148-1">(</span><span class="p" data-group-id="9632541148-1">)</span><span class="w">
+</span><span class="p" data-group-id="9632541148-2">#</span><span class="nc" data-group-id="9632541148-2">MapSet</span><span class="p" data-group-id="9632541148-2">&lt;</span><span class="p" data-group-id="9632541148-3">[</span><span class="p" data-group-id="9632541148-3">]</span><span class="p" data-group-id="9632541148-2">&gt;</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="new/1">
+    <div class="detail-header">
+    <a href="#new/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">new(enumerable)</span>
+        
+      <div class="specs">
+          <pre>new(<a href="Enum.html#t:t/0">Enum.t</a>()) :: <a href="#t:t/0">t</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Creates a set from an enumerable.</p>
+<h2 id="new/1-examples" class="section-heading">
+  <a href="#new/1-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="7915635147-1">(</span><span class="p" data-group-id="7915635147-2">[</span><span class="ss">:b</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="7915635147-2">]</span><span class="p" data-group-id="7915635147-1">)</span><span class="w">
+</span><span class="p" data-group-id="7915635147-3">#</span><span class="nc" data-group-id="7915635147-3">MapSet</span><span class="p" data-group-id="7915635147-3">&lt;</span><span class="p" data-group-id="7915635147-4">[</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="ss">:a</span><span class="p">,</span><span class="w"> </span><span class="ss">:b</span><span class="p" data-group-id="7915635147-4">]</span><span class="p" data-group-id="7915635147-3">&gt;</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="7915635147-5">(</span><span class="p" data-group-id="7915635147-6">[</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7915635147-6">]</span><span class="p" data-group-id="7915635147-5">)</span><span class="w">
+</span><span class="p" data-group-id="7915635147-7">#</span><span class="nc" data-group-id="7915635147-7">MapSet</span><span class="p" data-group-id="7915635147-7">&lt;</span><span class="p" data-group-id="7915635147-8">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="7915635147-8">]</span><span class="p" data-group-id="7915635147-7">&gt;</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="new/2">
+    <div class="detail-header">
+    <a href="#new/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">new(enumerable, transform)</span>
+        
+      <div class="specs">
+          <pre>new(<a href="Enum.html#t:t/0">Enum.t</a>(), (<a href="typespecs.html#built-in-types">term</a>() -> val)) :: <a href="#t:t/1">t</a>(val) when val: <a href="#t:value/0">value</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Creates a set from an enumerable via the transformation function.</p>
+<h2 id="new/2-examples" class="section-heading">
+  <a href="#new/2-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="7404703162-1">(</span><span class="p" data-group-id="7404703162-2">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p" data-group-id="7404703162-2">]</span><span class="p">,</span><span class="w"> </span><span class="k" data-group-id="7404703162-3">fn</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k" data-group-id="7404703162-3">end</span><span class="p" data-group-id="7404703162-1">)</span><span class="w">
+</span><span class="p" data-group-id="7404703162-4">#</span><span class="nc" data-group-id="7404703162-4">MapSet</span><span class="p" data-group-id="7404703162-4">&lt;</span><span class="p" data-group-id="7404703162-5">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="7404703162-5">]</span><span class="p" data-group-id="7404703162-4">&gt;</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="put/2">
+    <div class="detail-header">
+    <a href="#put/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">put(map_set, value)</span>
+        
+      <div class="specs">
+          <pre>put(<a href="#t:t/1">t</a>(val), new_val) :: <a href="#t:t/1">t</a>(val | new_val)
+when val: <a href="#t:value/0">value</a>(), new_val: <a href="#t:value/0">value</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Inserts <code class="inline">value</code> into <code class="inline">map_set</code> if <code class="inline">map_set</code> doesn’t already contain it.</p>
+<h2 id="put/2-examples" class="section-heading">
+  <a href="#put/2-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="7773516831-1">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="7773516831-2">(</span><span class="p" data-group-id="7773516831-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="7773516831-3">]</span><span class="p" data-group-id="7773516831-2">)</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="7773516831-1">)</span><span class="w">
+</span><span class="p" data-group-id="7773516831-4">#</span><span class="nc" data-group-id="7773516831-4">MapSet</span><span class="p" data-group-id="7773516831-4">&lt;</span><span class="p" data-group-id="7773516831-5">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="7773516831-5">]</span><span class="p" data-group-id="7773516831-4">&gt;</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">put</span><span class="p" data-group-id="7773516831-6">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="7773516831-7">(</span><span class="p" data-group-id="7773516831-8">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="7773516831-8">]</span><span class="p" data-group-id="7773516831-7">)</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="7773516831-6">)</span><span class="w">
+</span><span class="p" data-group-id="7773516831-9">#</span><span class="nc" data-group-id="7773516831-9">MapSet</span><span class="p" data-group-id="7773516831-9">&lt;</span><span class="p" data-group-id="7773516831-10">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="7773516831-10">]</span><span class="p" data-group-id="7773516831-9">&gt;</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="size/1">
+    <div class="detail-header">
+    <a href="#size/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">size(map_set)</span>
+        
+      <div class="specs">
+          <pre>size(<a href="#t:t/0">t</a>()) :: <a href="typespecs.html#basic-types">non_neg_integer</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Returns the number of elements in <code class="inline">map_set</code>.</p>
+<h2 id="size/1-examples" class="section-heading">
+  <a href="#size/1-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">size</span><span class="p" data-group-id="1441202166-1">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="1441202166-2">(</span><span class="p" data-group-id="1441202166-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="1441202166-3">]</span><span class="p" data-group-id="1441202166-2">)</span><span class="p" data-group-id="1441202166-1">)</span><span class="w">
+</span><span class="mi">3</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="subset?/2">
+    <div class="detail-header">
+    <a href="#subset?/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">subset?(map_set1, map_set2)</span>
+        
+      <div class="specs">
+          <pre>subset?(<a href="#t:t/0">t</a>(), <a href="#t:t/0">t</a>()) :: <a href="typespecs.html#built-in-types">boolean</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Checks if <code class="inline">map_set1</code>’s members are all contained in <code class="inline">map_set2</code>.</p>
+<p>This function checks if <code class="inline">map_set1</code> is a subset of <code class="inline">map_set2</code>.</p>
+<h2 id="subset?/2-examples" class="section-heading">
+  <a href="#subset?/2-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">subset?</span><span class="p" data-group-id="1060503894-1">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="1060503894-2">(</span><span class="p" data-group-id="1060503894-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="1060503894-3">]</span><span class="p" data-group-id="1060503894-2">)</span><span class="p">,</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="1060503894-4">(</span><span class="p" data-group-id="1060503894-5">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="1060503894-5">]</span><span class="p" data-group-id="1060503894-4">)</span><span class="p" data-group-id="1060503894-1">)</span><span class="w">
+</span><span class="no">true</span><span class="w">
+</span><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">subset?</span><span class="p" data-group-id="1060503894-6">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="1060503894-7">(</span><span class="p" data-group-id="1060503894-8">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="1060503894-8">]</span><span class="p" data-group-id="1060503894-7">)</span><span class="p">,</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="1060503894-9">(</span><span class="p" data-group-id="1060503894-10">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="1060503894-10">]</span><span class="p" data-group-id="1060503894-9">)</span><span class="p" data-group-id="1060503894-6">)</span><span class="w">
+</span><span class="no">false</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="to_list/1">
+    <div class="detail-header">
+    <a href="#to_list/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">to_list(map_set)</span>
+        
+      <div class="specs">
+          <pre>to_list(<a href="#t:t/1">t</a>(val)) :: [val] when val: <a href="#t:value/0">value</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Converts <code class="inline">map_set</code> to a list.</p>
+<h2 id="to_list/1-examples" class="section-heading">
+  <a href="#to_list/1-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">to_list</span><span class="p" data-group-id="4563023200-1">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="4563023200-2">(</span><span class="p" data-group-id="4563023200-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="4563023200-3">]</span><span class="p" data-group-id="4563023200-2">)</span><span class="p" data-group-id="4563023200-1">)</span><span class="w">
+</span><span class="p" data-group-id="4563023200-4">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p" data-group-id="4563023200-4">]</span></code></pre>
+  </section>
+</div>
+<div class="detail" id="union/2">
+    <div class="detail-header">
+    <a href="#union/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">union(map_set1, map_set2)</span>
+        
+      <div class="specs">
+          <pre>union(<a href="#t:t/1">t</a>(val1), <a href="#t:t/1">t</a>(val2)) :: <a href="#t:t/1">t</a>(val1 | val2)
+when val1: <a href="#t:value/0">value</a>(), val2: <a href="#t:value/0">value</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Returns a set containing all members of <code class="inline">map_set1</code> and <code class="inline">map_set2</code>.</p>
+<h2 id="union/2-examples" class="section-heading">
+  <a href="#union/2-examples" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Examples
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="gp unselectable">iex&gt; </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">union</span><span class="p" data-group-id="8839000900-1">(</span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="8839000900-2">(</span><span class="p" data-group-id="8839000900-3">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p" data-group-id="8839000900-3">]</span><span class="p" data-group-id="8839000900-2">)</span><span class="p">,</span><span class="w"> </span><span class="nc">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p" data-group-id="8839000900-4">(</span><span class="p" data-group-id="8839000900-5">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="8839000900-5">]</span><span class="p" data-group-id="8839000900-4">)</span><span class="p" data-group-id="8839000900-1">)</span><span class="w">
+</span><span class="p" data-group-id="8839000900-6">#</span><span class="nc" data-group-id="8839000900-6">MapSet</span><span class="p" data-group-id="8839000900-6">&lt;</span><span class="p" data-group-id="8839000900-7">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p" data-group-id="8839000900-7">]</span><span class="p" data-group-id="8839000900-6">&gt;</span></code></pre>
+  </section>
+</div>
+        </section>
+
+          <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.19.0),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  <script src="dist/app-41432e805d.js"></script>
+  
+  </body>
+</html>
+
